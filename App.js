@@ -1,21 +1,67 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { View, StatusBar } from "react-native";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./reducers";
+import TabNavigation from "./components/TabNavigation";
+import Constants from "expo-constants";
+import { purple, white } from "./utils/colors";
+import EntryDetail from "./components/EntryDetail";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { setLocalNotification } from "./utils/helpers";
 
-export default function App() {
+function UdaciStatusbar({ bgColor, StatusBarStyle }) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View
+      style={{ backgroundColor: bgColor, height: Constants.statusBarHeight }}
+    >
+      <StatusBar
+        translucent
+        backgroundColor={bgColor}
+        barStyle={StatusBarStyle}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const Stack = createStackNavigator({
+  Home: {
+    screen: TabNavigation,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  EntryDetail: {
+    screen: EntryDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
   },
 });
+
+const MainNavigation = createAppContainer(createSwitchNavigator({ Stack }));
+
+// redux store
+const store = createStore(reducer);
+class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <UdaciStatusbar bgColor={purple} barStyle="light-content" />
+          <MainNavigation />
+        </View>
+      </Provider>
+    );
+  }
+}
+
+export default App;

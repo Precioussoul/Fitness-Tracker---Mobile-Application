@@ -1,29 +1,35 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "UdaciFitness",
+    "slug": "udacifitness",
+    "description": "The Best triathlon tracker ever",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/udacifitness.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/udacifitness.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "notification": {
+      "icon": "./assets/udacifitness.png"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.udacifitness.exp",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/udacifitness.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "org.udacifitness.exp",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
